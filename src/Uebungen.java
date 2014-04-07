@@ -20,6 +20,10 @@ public class Uebungen {
 
 	}
 
+	public static void Astra() {
+		System.out.println(Math.toDegrees(Math.atan2(-7771, 30409)));
+	}
+
 	public static void Uebung17() {
 		Vector a = new Vector(new double[] { 1, 3, 2 });
 		a = a.normalize();
@@ -66,6 +70,6 @@ public class Uebungen {
 	}
 
 	public static void main(String[] args) {
-		Uebung17();
+		Astra();
 	}
 }
