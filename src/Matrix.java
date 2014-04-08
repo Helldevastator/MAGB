@@ -42,6 +42,10 @@ public class Matrix {
 		return mat[i][j];
 	}
 
+	public void set(int i, int j, double x) {
+		mat[i][j] = x;
+	}
+
 	/*
 	 * matrix addition
 	 */
@@ -138,16 +142,9 @@ public class Matrix {
 	static public Matrix rotation(double phi, double a1, double a2, double a3) {
 		double c = Math.cos(Math.toRadians(phi));
 		double s = Math.sin(Math.toRadians(phi));
-		double[][] rot =
-			{
-						{ (1 - c) * a1 * a1 + c, (1 - c) * a1 * a2 - s * a3,
-								(1 - c) * a1 * a3 + s * a2, 0 },
-						{ (1 - c) * a2 * a1 + s * a3, (1 - c) * a2 * a2 + c,
-								(1 - c) * a2 * a3 - s * a1, 0 },
-						{ (1 - c) * a3 * a1 - s * a2,
-								(1 - c) * a3 * a2 + s * a1,
-								(1 - c) * a3 * a3 + c, 0 },
-						{ 0, 0, 0, 1 } };
+		double[][] rot = { { (1 - c) * a1 * a1 + c, (1 - c) * a1 * a2 - s * a3, (1 - c) * a1 * a3 + s * a2, 0 },
+				{ (1 - c) * a2 * a1 + s * a3, (1 - c) * a2 * a2 + c, (1 - c) * a2 * a3 - s * a1, 0 },
+				{ (1 - c) * a3 * a1 - s * a2, (1 - c) * a3 * a2 + s * a1, (1 - c) * a3 * a3 + c, 0 }, { 0, 0, 0, 1 } };
 		return new Matrix(rot);
 	}
 
@@ -162,15 +159,13 @@ public class Matrix {
 		return temp;
 	}
 
-// ------ Bewegungen des Objekt-Systems
-	public Matrix rotateModelSysAbs(Matrix U, double phi, double a1, double a2,
-			double a3) {
+	// ------ Bewegungen des Objekt-Systems
+	public Matrix rotateModelSysAbs(Matrix U, double phi, double a1, double a2, double a3) {
 		Matrix R = Matrix.rotation(phi, a1, a2, a3);
 		return R.times(U);
 	}
 
-	public Matrix rotateModelSysRel(Matrix U, double phi, double a1, double a2,
-			double a3) {
+	public Matrix rotateModelSysRel(Matrix U, double phi, double a1, double a2, double a3) {
 		Matrix R = Matrix.rotation(phi, a1, a2, a3);
 		return U.times(R);
 	}
@@ -185,16 +180,14 @@ public class Matrix {
 		return U.times(T);
 	}
 
-// ------ Bewegungen des Kamera-Systems
-	public Matrix rotateCamSysAbs(Matrix V, double phi, double a1, double a2,
-			double a3) {
+	// ------ Bewegungen des Kamera-Systems
+	public Matrix rotateCamSysAbs(Matrix V, double phi, double a1, double a2, double a3) {
 		Matrix R = Matrix.rotation(-phi, a1, a2, a3); // Inverse der Rotation = negativer Winkel
 		return V.times(R);
 
 	}
 
-	public Matrix rotateCamSysRel(Matrix V, double phi, double a1, double a2,
-			double a3) {
+	public Matrix rotateCamSysRel(Matrix V, double phi, double a1, double a2, double a3) {
 		Matrix R = Matrix.rotation(-phi, a1, a2, a3); // Inverse der Rotation = negativer Winkel
 		return R.times(V);
 	}
