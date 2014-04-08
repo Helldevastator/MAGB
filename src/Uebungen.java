@@ -56,19 +56,44 @@ public class Uebungen {
 		// Loese fuer g1: x = e_1 + lambda*E => 3(3*lambda +
 		// 1)-4(-4*lambda)+lambda = 0 => 2*lambda = -3/13
 		// lambda in g1 einsetzen
-		double x_lambda = -3 / 26;
-		double y_lambda = 2 / 13;
-		double z_lambda = -1 / 26;
+		double x_lambda = -3.0 / 26.0 * 2;
+		double y_lambda = 2.0 / 13.0 * 2;
+		double z_lambda = -1.0 / 26.0 * 2;
 
 		double[][] c = { { 1.0 + x_lambda * 3.0, x_lambda * -4.0, x_lambda * 1.0 }, { y_lambda * 3.0, 1.0 + y_lambda * -4.0, y_lambda * 1.0 },
 				{ z_lambda * 3.0, z_lambda * -4.0, 1.0 + z_lambda * 1.0 } };
-		System.out.println("\n c)" + (x_lambda));
+		System.out.println("\n c)");
 		new Matrix(c).print();
 
 	}
 
 	public static void Astra() {
 		System.out.println(Math.toDegrees(Math.atan2(-7771, 30409)));
+	}
+
+	public static void Uebung11() {
+		// a)
+		// 1. translate in z (M1), 2. rotate around y (M2) => M = M2*M1
+		double alpha = 15.0;
+		double a = 5;
+		double s = Math.sin(alpha);
+		double c = Math.cos(alpha);
+
+		double[][] m1 = { { 1, 0, 0, 0 }, { 0, 1, 0, 0 }, { 0, 0, 1, a }, { 0, 0, 0, 1 } };
+		double[][] m2 = { { c, 0, s, 0 }, { 0, 1, 0, 0 }, { -s, 0, c, 0 }, { 0, 0, 0, 1 } };
+		Matrix M = new Matrix(m2).times(new Matrix(m1));
+		M.print();
+
+		// b)
+		// 1. rotate around z (M3), 2. translate on z (M1), 3. rotate around y
+		// (M2) => M = M3*M2*M1
+		double beta = 30.0;
+		double s2 = Math.sin(beta);
+		double c2 = Math.cos(beta);
+		double[][] m3 = { { c2, -s2, 0, 0 }, { s2, c2, 0, 0 }, { 0, 0, 1, 0 }, { 0, 0, 0, 1 } };
+		Matrix M2 = new Matrix(m3).times(M);
+		M2.print();
+
 	}
 
 	public static void Uebung17() {
