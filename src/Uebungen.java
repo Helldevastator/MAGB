@@ -67,10 +67,6 @@ public class Uebungen {
 
 	}
 
-	public static void Astra() {
-		System.out.println(Math.toDegrees(Math.atan2(-7771, 30409)));
-	}
-
 	public static void Uebung11() {
 		// a)
 		// 1. translate in z (M1), 2. rotate around y (M2) => M = M2*M1
@@ -94,6 +90,10 @@ public class Uebungen {
 		Matrix M2 = new Matrix(m3).times(M);
 		M2.print();
 
+	}
+
+	public static void Uebung12Astra() {
+		System.out.println(Math.toDegrees(Math.atan2(-7771, 30409)));
 	}
 
 	public static void Uebung17() {
