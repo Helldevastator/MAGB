@@ -182,13 +182,15 @@ public class Matrix {
 
 	// ------ Bewegungen des Kamera-Systems
 	public Matrix rotateCamSysAbs(Matrix V, double phi, double a1, double a2, double a3) {
-		Matrix R = Matrix.rotation(-phi, a1, a2, a3); // Inverse der Rotation = negativer Winkel
+		Matrix R = Matrix.rotation(-phi, a1, a2, a3); // Inverse der Rotation =
+														// negativer Winkel
 		return V.times(R);
 
 	}
 
 	public Matrix rotateCamSysRel(Matrix V, double phi, double a1, double a2, double a3) {
-		Matrix R = Matrix.rotation(-phi, a1, a2, a3); // Inverse der Rotation = negativer Winkel
+		Matrix R = Matrix.rotation(-phi, a1, a2, a3); // Inverse der Rotation =
+														// negativer Winkel
 		return R.times(V);
 	}
 
@@ -211,5 +213,15 @@ public class Matrix {
 			}
 			System.out.println();
 		}
+	}
+
+	public Matrix createNormalProjection(double r, double l, double t, double b, double n, double f) {
+		return new Matrix(new double[][] { { 2.0 / (r - l), 0, 0, -(r + l) / (r - l) }, { 0, 2.0 / (t - b), 0, -(t + b) / (t - b) }, { 0, 0, -2.0 / (f - n), -(f + n) / (f - n) },
+				{ 0, 0, 0, 1 } });
+	}
+
+	public Matrix createZentralProjection(double r, double l, double t, double b, double n, double f) {
+		return new Matrix(new double[][] { { 2.0 * n / (r - l), 0, (r + l) / (r - l), 0 }, { 0, 2.0 * n / (t - b), (t + b) / (t - b), 0 },
+				{ 0, 0, -(f + n) / (f - n), -2 * f * n / (f - n) }, { 0, 0, -1, 0 } });
 	}
 }
