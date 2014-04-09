@@ -115,7 +115,7 @@ public class Uebungen {
 		Vector e2dash = new Vector(tmp);
 
 		Vector v = e2.cross(e2dash);
-		System.out.println(Math.toDegrees(Math.atan2(rot.el(1, 2), rot.el(0, 0))));
+		System.out.println(Math.toDegrees(Math.atan2(rot.el(1, 2), rot.el(1, 0))));
 		System.out.println(Math.toDegrees(Math.acos(rot.el(1, 1))));
 		System.out.println(Math.toDegrees(Math.atan2(rot.el(2, 1), -rot.el(0, 1))));
 	}
