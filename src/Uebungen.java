@@ -6,7 +6,7 @@ public class Uebungen {
 		Vector B = new Vector(new double[] { 0, 0, 0 });
 
 		Vector f3 = A.minus(B);
-		Vector f1 = f3.cross(up);
+		Vector f1 = up.cross(f3);
 		Vector f2 = f3.cross(f1);
 
 		System.out.println("System VOR normierung!!!");
@@ -142,8 +142,65 @@ public class Uebungen {
 
 	}
 
+	public static void aufg2() {
+		double elev = 20.0;
+		double azim = 50.0;
+		Matrix rot1 = Matrix.rotation(-elev, 1, 0, 0);
+		Matrix rot2 = Matrix.rotation(azim, 0, 1, 0);
+
+		Matrix rot = rot2.times(rot1);
+		System.out.println(Math.toDegrees(Math.atan2(rot.el(1, 2), rot.el(1, 0))));
+		System.out.println(Math.toDegrees(Math.acos(rot.el(1, 1))));
+		System.out.println(Math.toDegrees(Math.atan2(rot.el(2, 1), -rot.el(0, 1))));
+	}
+
 	public static void main(String[] args) {
 		// Uebung17();
-		Uebung8();
+		aufg2b();
+	}
+
+	public static void aufg2b() {
+		double elev = 20.0;
+		double azim = 50.0;
+		Matrix rot1 = Matrix.rotation(-elev, 1, 0, 0);
+		Matrix rot2 = Matrix.rotation(azim, 0, 1, 0);
+
+		Matrix rot = rot2.times(rot1);
+		rot.set(0, 3, 4);
+		rot.set(1, 3, 2);
+		rot.set(2, 3, 8);
+
+		rot.print();
+
+		//matlab eingeben, invertieren und berechnen
+	}
+
+	public static void aufg4() {
+		Vector A = new Vector(new double[] { 3, 0, 0 });
+		Vector L = new Vector(new double[] { 0, 10, 10 });
+		Vector Beob = new Vector(new double[] { 8, 4, 10 });
+
+		Vector B = new Vector(new double[] { 0, 2, 0 });
+		Vector C = new Vector(new double[] { 0, 0, 1 });
+
+		Vector v = B.minus(A);
+		Vector m = C.minus(A);
+		Vector n = v.cross(m).normalize();
+
+		Vector toL = L.minus(A).normalize();
+		Vector toE = Beob.minus(A).normalize();
+
+		// orthogonalzerlegung mit normalisierten vectoren
+		// Vector ref = n.times(toL.dot(n)).times(2).minus(toL).normalize();
+		// //norm maybe not needed
+
+		// b
+		Vector h = toL.plus(toE).normalize();
+		double eps = 2 * Math.acos(n.dot(h));
+
+		double light = 0.4;
+		light += 0.5 * n.dot(toL);
+		light += 0.2 * Math.pow(eps, 20);
+		System.out.println(light);
 	}
 }
